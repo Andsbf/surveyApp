@@ -1,0 +1,20 @@
+development:
+  clients:
+    default:
+      database: "pandabot_development"
+      hosts:
+        - "localhost:27017"
+
+      options:
+        max_pool_size: 32
+        truncate_logs: false
+
+production:
+  clients:
+    default:
+      database: "pandabot_production"
+      hosts:
+        - "localhost:27017"
+
+      options:
+        max_pool_size: 32

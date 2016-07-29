@@ -1,0 +1,39 @@
+source 'https://rubygems.org'
+
+gem 'rails', '~> 4.2.5.1'
+
+gem 'mongoid'
+gem 'active_model_serializers'
+gem 'mongoid_orderable'
+
+# responders - to responde json only
+gem 'responders'
+
+# gem 'sinatra', require: false
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'byebug'
+end
+
+group :development do
+  gem 'web-console'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'fabrication'
+  gem 'database_cleaner'
+  gem 'guard-rspec'
+  gem 'guard-rails'
+  gem 'mongoid-rspec'
+  gem 'fuubar'
+end
+
+gem 'rack-cors'
+
+# Use PUMA as the app server
+gem 'puma'

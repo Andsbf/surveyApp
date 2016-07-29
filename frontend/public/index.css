@@ -1,0 +1,7 @@
+.field {
+  display: inline-block;
+}
+
+.field:hover{
+  border-style: dotted;
+}
