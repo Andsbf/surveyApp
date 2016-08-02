@@ -6,7 +6,7 @@ const Dropdown = ({
   dispatch,
   editing = false
  }) => {
-
+debugger;
   let editForm;
   if (editing) {
     editForm = <DropdownEdit field={field} />;

@@ -1,13 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addField } from '../actions'
+import { addField } from '../actions/field'
 
 let AddField = ({
-  type,
-  dispatch
+  onAddField
 }) => (
   <button href='#'
-    onClick={() => dispatch(addField(type))}
+    onClick={onAddField}
   >
     {' + '}
   </button>

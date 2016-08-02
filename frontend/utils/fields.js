@@ -8,15 +8,25 @@ export const generateId = () => {
   return text;
 }
 
-export const fieldCreator = (type) => {
+export const removeFieldId = (id, fields) => {
+  const fieldIndex = fields.findIndex(fieldId => fieldId == id);
+  return [
+    ...fields.slice(0, fieldIndex),
+    ...fields.slice(fieldIndex + 1)
+  ]
+}
+
+export const fieldCreator = (type, id, formId) => {
   switch (type) {
     case 'dropdown':
-      return {
-        id: generateId(),
+      const field = {
+        id: id,
+        formId: formId,
         fieldType: type,
         label: 'Dropdown',
         options: [],
-      };
+      }
+      return field;
     default:
       alert('something wrong')
   }

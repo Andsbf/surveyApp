@@ -1,12 +1,25 @@
-const globalState = (state = { editing_field: undefined }, action) => {
+import { combineReducers } from 'redux'
+
+const initState = {
+  selectedForm: '765432',
+  selectedField: undefined
+}
+
+const globalState = (state = initState, action) => {
   switch (action.type) {
+    case 'SELECT_FORM':
+      return {
+        ...state,
+        selectedForm: action.formId
+      }
+
     case 'TOGGLE_FIELD_EDIT':
       return {
         ...state,
-        editing_field:
-          action.field_id == state.editing_field ?
+        selectedField:
+          action.fieldId == state.selectedField ?
             undefined :
-            action.field_id
+            action.fieldId
       };
     default:
       return state;

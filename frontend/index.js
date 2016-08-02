@@ -1,12 +1,11 @@
 import 'babel-polyfill'
-import React from 'react'
-import { render } from 'react-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import App from './components/App'
-import surveyApp from './reducers'
+import App            from './components/App'
+import React          from 'react'
+import { render }     from 'react-dom'
+import { Provider }   from 'react-redux'
+import configureStore from './store/configureStore'
 
-const store = createStore(surveyApp)
+const store = configureStore()
 
 const rootElement = document.getElementById('root')
 render(

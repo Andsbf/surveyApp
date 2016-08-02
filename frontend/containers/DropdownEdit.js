@@ -17,7 +17,7 @@ let DropdownEdit = ({
         onChange={(value) => {
           dispatch({
             type: 'LABEL_CHANGE',
-            field_id: field.id,
+            fieldId: field.id,
             label: value
           })
         }}
@@ -32,8 +32,8 @@ let DropdownEdit = ({
             onChange={value =>
               dispatch({
                 type: 'CHANGE_OPTION_TEXT',
-                field_id: field.id,
-                option_id: option.id,
+                fieldId: field.id,
+                optionId: option.id,
                 text: value
               })
             }
@@ -43,8 +43,8 @@ let DropdownEdit = ({
             onClick={ () =>
               dispatch({
                 type: 'REMOVE_OPTION',
-                field_id: field.id,
-                option_id: option.id
+                fieldId: field.id,
+                optionId: option.id
               })
             }
           >
@@ -56,8 +56,8 @@ let DropdownEdit = ({
         onClick={()=>
           dispatch({
             type: 'ADD_OPTION',
-            field_id: field.id,
-            option_id: generateId(),
+            fieldId: field.id,
+            optionId: generateId(),
             text: ''
           })
         }

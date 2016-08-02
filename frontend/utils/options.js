@@ -11,7 +11,7 @@ export const changeOptionText = (id, options, text) =>{
   ];
 }
 
-export const removeOptionId =(id, options) => {
+export const removeOptionId = (id, options) => {
   const optionIndex = options.findIndex(option => option.id == id);
   return [
     ...options.slice(0, optionIndex),
@@ -23,7 +23,7 @@ export const addOption = (options, params) =>{
   return [
     ...options,
     {
-      id: params.option_id,
+      id: params.optionId,
       value: params.text
     }
   ];
