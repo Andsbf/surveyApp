@@ -3,8 +3,8 @@ class Row
   include Mongoid::Timestamps
 
   field :label, type: String, default: 'draft'
-  field :options, type: Hash, default: Array.new
-  field :field_type, type: String, default: 'dropdown'
+  field :options, type: Array, default: Array.new
+  field :row_type, type: String, default: 'dropdown'
 
   belongs_to :form
 

@@ -1,14 +1,14 @@
-import { fieldCreator, generateId } from '../utils/fields'
+import { rowCreator, generateId } from '../utils/rows'
 import { changeOptionText, removeOptionId, addOption }  from '../utils/options'
 
-const fields = (state = {}, action) => {
+const rows = (state = {}, action) => {
   switch (action.type) {
 
-    case 'REMOVE_FIELD':
+    case 'REMOVE_ROW':
       return {
         ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
+        [action.rowId]: {
+          ...state[action.rowId],
           formId: undefined
         }
       }
@@ -16,17 +16,17 @@ const fields = (state = {}, action) => {
     case 'ADD_OPTION':
       return {
         ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
-          options: addOption(state[action.fieldId].options, action)
+        [action.rowId]: {
+          ...state[action.rowId],
+          options: addOption(state[action.rowId].options, action)
         }
       }
 
     case 'LABEL_CHANGE':
       return {
         ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
+        [action.rowId]: {
+          ...state[action.rowId],
           label: action.label
         }
       }
@@ -34,11 +34,11 @@ const fields = (state = {}, action) => {
     case 'CHANGE_OPTION_TEXT':
       return {
        ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
+        [action.rowId]: {
+          ...state[action.rowId],
           options: changeOptionText(
             action.optionId,
-            state[action.fieldId].options,
+            state[action.rowId].options,
             action.text
           )
         }
@@ -47,9 +47,9 @@ const fields = (state = {}, action) => {
     case 'REMOVE_OPTION':
       return {
         ...state,
-        [action.fieldId]: {
-          ...state[action.fieldId],
-          options: removeOptionId(action.optionId, state[action.fieldId].options)
+        [action.rowId]: {
+          ...state[action.rowId],
+          options: removeOptionId(action.optionId, state[action.rowId].options)
         }
       }
 
@@ -58,4 +58,4 @@ const fields = (state = {}, action) => {
   }
 };
 
-export default fields
+export default rows

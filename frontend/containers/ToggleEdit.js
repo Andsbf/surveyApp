@@ -3,17 +3,17 @@ import { connect } from 'react-redux'
 
 let ToggleEdit = ({
   dispatch,
-  field_id,
+  rowId,
   editing
 }) => {
   return (
     <button
       onClick={()=>
         dispatch({
-          type:'TOGGLE_FIELD_EDIT',
-          field_id: editing ?
+          type:'TOGGLE_ROW_EDIT',
+          rowId: editing ?
             undefined :
-            field_id
+            rowId
         })
       }
     >

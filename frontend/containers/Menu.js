@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Dropdown  from '../components/Dropdown'
-import AddField from '../containers/AddField'
-import { addField } from '../actions/field'
+import AddRow from '../components/AddRow'
+import { requestNewRow } from '../actions/row'
 
 const dropdownSample ={
   id: '765432',
-  fieldType: 'dropdown',
+  rowType: 'dropdown',
   label: 'Dropdown Sample',
     options: [
       { id: '1', value: 'Option 1' },
@@ -16,12 +16,12 @@ const dropdownSample ={
     ]
 }
 
-let Menu = ({formId, onAddFieldClick}) => (
+let Menu = ({formId, onAddRowClick}) => (
   <div>
     <h4>Menu</h4>
 
-    <AddField onAddField={()=> onAddFieldClick(formId,'dropdown')}/>
-    <Dropdown field={dropdownSample}/>
+    <AddRow onAddRow={()=> onAddRowClick(formId,'dropdown')}/>
+    <Dropdown row={dropdownSample}/>
 
   </div>
 )
@@ -37,8 +37,8 @@ const mapStateToFormProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddFieldClick: (formId, type) => {
-      dispatch(addField(formId, type))
+    onAddRowClick: (formId, type) => {
+      dispatch(requestNewRow(formId, type))
     }
   }
 }

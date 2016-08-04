@@ -1,7 +1,7 @@
-.field {
+.rows {
   display: inline-block;
 }
 
-.field:hover{
+.rows:hover{
   border-style: dotted;
 }

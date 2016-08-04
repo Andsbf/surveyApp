@@ -8,25 +8,25 @@ export const generateId = () => {
   return text;
 }
 
-export const removeFieldId = (id, fields) => {
-  const fieldIndex = fields.findIndex(fieldId => fieldId == id);
+export const removeRowId = (id, rows) => {
+  const rowIndex = rows.findIndex(rowId => rowId == id);
   return [
-    ...fields.slice(0, fieldIndex),
-    ...fields.slice(fieldIndex + 1)
+    ...rows.slice(0, rowIndex),
+    ...rows.slice(rowIndex + 1)
   ]
 }
 
-export const fieldCreator = (type, id, formId) => {
+export const rowCreator = (type, id, formId) => {
   switch (type) {
     case 'dropdown':
-      const field = {
+      const row = {
         id: id,
         formId: formId,
-        fieldType: type,
+        rowType: type,
         label: 'Dropdown',
         options: [],
       }
-      return field;
+      return row;
     default:
       alert('something wrong')
   }

@@ -1,5 +1,5 @@
-import { httpGet } from '../utils/httpRequests'
-import { receiveFields } from './field'
+import { httpGet, httpPut, httpPost } from '../utils/httpRequests'
+import { receiveRows } from './rows'
 
 export function requestForm(formId) {
   return {
@@ -16,6 +16,7 @@ export function selectForm(formId) {
 }
 
 export function receiveForm(form) {
+  const {rows, ...cleanForm} = form;
   return {
     type: 'RECEIVE_FORM',
     formId: form.id,
@@ -24,20 +25,13 @@ export function receiveForm(form) {
     response: {
       entities: {
         forms: {
-          [form.id]: {...form}
+          [form.id]: cleanForm
         }
       }
     }
   }
 }
 
-export function fetchFormIfNeeded(formId) {
-  return (dispatch, getState) => {
-    if (shouldFetchForm(getState(), formId)) {
-      return dispatch(fetchForm(formId))
-    }
-  }
-}
 
 export function fetchForm(formId) {
   return dispatch => {
@@ -45,22 +39,48 @@ export function fetchForm(formId) {
 
     return httpGet(`http://localhost:3000/api/v1/forms/${formId}.json`)
       .then(response => {
+        dispatch(receiveRows(response.form.rows));
         dispatch(receiveForm(response.form));
-        dispatch(receiveFields(response.form.rows));
-        dispatch(selectForm(formId)); // Tempo
-        // response.json();
+        // dispatch(selectForm(formId)); // Tempo
       })
       // .then(json => dispatch(receivePosts(reddit, json))) handle error
   }
 }
 
-function shouldFetchForm(state, reddit) {
-  const posts = state.postsByReddit[reddit]
-  if (!posts) {
-    return true
+export function saveForm(formId) {
+  return (dispatch, getState) => {
+    // debugger;
+    // dispatch(requestForm(formId));
+
+    const data = {
+      form: {
+        ...getState().entities.forms[formId],
+      }
+    }
+
+    getState().rowsByForm[formId].rows.map(id => {
+      let row = getState().entities.rows[id]
+
+      const data = {
+        row: {
+          ...row,
+          formId: formId
+        }
+      }
+
+      httpPost(`http://localhost:3000/api/v1/rows`, data)
+        .then(response => {
+          debugger
+        })
+    })
+
+    return httpPut(`http://localhost:3000/api/v1/forms/${formId}.json`, data)
+      .then(response => {
+        dispatch(receiveRows(response.form.rows));
+        dispatch(receiveForm(response.form));
+        dispatch(selectForm(formId)); // Tempo
+        // response.json();
+      })
+      // .then(json => dispatch(receivePosts(reddit, json))) handle error
   }
-  if (posts.isFetching) {
-    return false
-  }
-  return posts.didInvalidate
 }

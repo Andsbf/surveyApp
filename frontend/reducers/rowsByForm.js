@@ -1,15 +1,15 @@
-import fields from './fields'
-import { removeFieldId } from '../utils/fields'
+import rows from './rows'
+import { removeRowId } from '../utils/rows'
 
 const InitState = {
- '765432': {
-    isFetching: false,
-    didInvalidate: false,
-    fields: [765432, 765431]
-  }
+ // '765432': {
+ //    isFetching: false,
+ //    didInvalidate: false,
+ //    rows: [765432, 765431]
+ //  }
 }
 
-const fieldsByForm = (state = InitState, action) => {
+const rowsByForm = (state = InitState, action) => {
   let form = state[action.formId] || {};
   switch (action.type) {
     case 'RECEIVE_FORM':
@@ -19,7 +19,7 @@ const fieldsByForm = (state = InitState, action) => {
           ...form,
           isFetching: false,
           didInvalidate: false,
-          fields: action.form.rows.map(field => field.id)
+          rows: action.form.rows.map(row => row.id)
         }
       }
 
@@ -33,21 +33,22 @@ const fieldsByForm = (state = InitState, action) => {
         }
       }
 
-    case 'ADD_FIELD':
+    case 'ADD_ROW':
+    debugger
       return {
         ...state,
         [action.formId]: {
          ...form,
-         fields: form.fields.concat(action.fieldId)
+         rows: form.rows.concat(action.rowId)
         }
       };
 
-    case 'REMOVE_FIELD':
+    case 'REMOVE_ROW':
       return {
         ...state,
         [action.formId]: {
          ...form,
-         fields: removeFieldId(action.fieldId, form.fields)
+         rows: removeRowId(action.rowId, form.rows)
         }
       };
 
@@ -56,4 +57,4 @@ const fieldsByForm = (state = InitState, action) => {
   }
 };
 
-export default fieldsByForm
+export default rowsByForm

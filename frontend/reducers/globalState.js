@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux'
 
 const initState = {
-  selectedForm: '765432',
-  selectedField: undefined
+
+  selectedForm: undefined,
+  selectedRow: undefined
 }
 
 const globalState = (state = initState, action) => {
@@ -13,13 +14,13 @@ const globalState = (state = initState, action) => {
         selectedForm: action.formId
       }
 
-    case 'TOGGLE_FIELD_EDIT':
+    case 'TOGGLE_ROW_EDIT':
       return {
         ...state,
-        selectedField:
-          action.fieldId == state.selectedField ?
+        selectedRow:
+          action.rowId == state.selectedRow ?
             undefined :
-            action.fieldId
+            action.rowId
       };
     default:
       return state;

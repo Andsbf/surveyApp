@@ -16,6 +16,10 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  # Don't care if controller receive empty array
+  # http://guides.rubyonrails.org/security.html#unsafe-query-generation
+  config.action_dispatch.perform_deep_munge = false
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

@@ -13,10 +13,7 @@ class Api::V1::FormsController < ApplicationController
   # GET /forms/1
   # GET /forms/1.json
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @form }
-    end
+    render json: @form
   end
 
   # GET /forms/new
@@ -24,14 +21,10 @@ class Api::V1::FormsController < ApplicationController
     @form = Form.new
   end
 
-  # GET /forms/1/edit
-  def edit
-  end
-
   # POST /forms
   # POST /forms.json
   def create
-    debugger
+    # debugger
     @form = Form.new(form_params)
 
     respond_to do |format|
@@ -48,14 +41,10 @@ class Api::V1::FormsController < ApplicationController
   # PATCH/PUT /forms/1
   # PATCH/PUT /forms/1.json
   def update
-    respond_to do |format|
-      if @form.update(form_params)
-        format.html { redirect_to @form, notice: 'Form was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @form.errors, status: :unprocessable_entity }
-      end
+    if @form.update(form_params)
+      render json: @form
+    else
+      render json: @form.errors, status: :unprocessable_entity
     end
   end
 
@@ -77,6 +66,6 @@ class Api::V1::FormsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def form_params
-      params[:form]
+      params.require(:form).permit(:form_id, :title)
     end
 end

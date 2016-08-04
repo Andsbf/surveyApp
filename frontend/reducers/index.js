@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux'
 import globalState from './globalState'
 import entities from './entities'
-import fields from './fields'
-import fieldsByForm from './fieldsByForm'
+import rowsByForm from './rowsByForm'
 
 const surveyApp = combineReducers({
   entities,
   globalState,
-  fieldsByForm,
+  rowsByForm,
 })
 
 export default surveyApp

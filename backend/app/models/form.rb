@@ -5,6 +5,6 @@ class Form
   field :status, type: String, default: "draft"
   field :title, type: String, default: "untitled"
 
-  has_many :rows
+  has_many :rows, dependent: :destroy
 
 end

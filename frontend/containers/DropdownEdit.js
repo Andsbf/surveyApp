@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Input from '../components/Input'
-import { generateId } from '../utils/fields'
+import { generateId } from '../utils/rows'
 
 let DropdownEdit = ({
   dispatch,
-  field,
+  row,
   editing
 }) => (
     <div>
@@ -17,22 +17,22 @@ let DropdownEdit = ({
         onChange={(value) => {
           dispatch({
             type: 'LABEL_CHANGE',
-            fieldId: field.id,
+            rowId: row.id,
             label: value
           })
         }}
-        value={field.label}
+        value={row.label}
       />
 
       <p>options:</p>
 
-      {field.options.map(option =>
+      {row.options.map(option =>
         <div key={option.id}>
           <Input
             onChange={value =>
               dispatch({
                 type: 'CHANGE_OPTION_TEXT',
-                fieldId: field.id,
+                rowId: row.id,
                 optionId: option.id,
                 text: value
               })
@@ -43,7 +43,7 @@ let DropdownEdit = ({
             onClick={ () =>
               dispatch({
                 type: 'REMOVE_OPTION',
-                fieldId: field.id,
+                rowId: row.id,
                 optionId: option.id
               })
             }
@@ -56,7 +56,7 @@ let DropdownEdit = ({
         onClick={()=>
           dispatch({
             type: 'ADD_OPTION',
-            fieldId: field.id,
+            rowId: row.id,
             optionId: generateId(),
             text: ''
           })

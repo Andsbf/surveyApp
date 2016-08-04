@@ -1,10 +1,10 @@
-import { fieldCreator, generateId } from '../utils/fields'
+import { rowCreator, generateId } from '../utils/rows'
 import { changeOptionText, removeOptionId, addOption }  from '../utils/options'
 
 const forms = (state = {}, action) => {
   switch (action.type) {
     case 'Template':
-      if (state.id !== action.field_id) {
+      if (state.id !== action.rowId) {
         return state;
       }
 
