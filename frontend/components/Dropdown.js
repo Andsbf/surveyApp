@@ -5,17 +5,8 @@ const Dropdown = ({
   row,
   dispatch,
   editing = false
- }) => {
-debugger;
-  let editForm;
-  if (editing) {
-    editForm = <DropdownEdit row={row} />;
-  } else {
-    editForm = '';
-  }
-
-  return (
-    <div className=''>
+ }) => (
+    <div className='col-md-6'>
       <div className='form-group row'>
         <label className='col-sm-3 col-form-label'>
           {row.label}:
@@ -26,12 +17,11 @@ debugger;
               <option key={option.id}>{option.value}</option>
             )}
           </select>
-          { editForm }
+          { editing ? <DropdownEdit row={row} /> : '' }
         </div>
       </div>
     </div>
-  );
-}
+);
 
 Dropdown.propTypes = {
   row: PropTypes.object,

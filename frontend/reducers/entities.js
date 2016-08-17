@@ -30,8 +30,8 @@ const rowsInitState = {
 }
 
 function entities(state = { forms: formsInitState, rows: rowsInitState }, action) {
-  if (action.response && action.response.entities) {
-    return merge({}, state, action.response.entities);
+  if (action.entities) {
+    return merge({}, state, action.entities);
   }
 
 

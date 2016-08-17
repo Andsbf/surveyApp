@@ -43,14 +43,14 @@ const rowsByForm = (state = InitState, action) => {
         }
       };
 
-    case 'REMOVE_ROW':
-      return {
-        ...state,
-        [action.formId]: {
-         ...form,
-         rows: removeRowId(action.rowId, form.rows)
-        }
-      };
+    // case 'REMOVE_ROW':
+    //   return {
+    //     ...state,
+    //     [action.formId]: {
+    //      ...form,
+    //      rows: removeRowId(action.rowId, form.rows)
+    //     }
+    //   };
 
     default:
       return state;

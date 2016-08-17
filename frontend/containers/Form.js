@@ -3,14 +3,9 @@ import { connect } from 'react-redux'
 import Dropdown  from '../components/Dropdown'
 import { removeRow, toggleEditRow } from '../actions/row'
 import { fetchFormIfNeeded, fetchForm, saveForm } from '../actions/form'
+import RowOptions from '../components/RowOptions'
 
 class Form extends Component {
-
-  componentDidMount() {
-    // const { fetchForm } = this.props;
-    // fetchForm()
-  }
-
   render () {
     const {
       form,
@@ -23,47 +18,39 @@ class Form extends Component {
      } = this.props
 
     return (
-      <div className='row'>
-        <div className="col-md-6 offset-md-3">
+      <div className='row m-t-3'>
+        <p className="text-xs-center">{form.title}</p>
+        <div className="col-md-6 offset-md-4">
           {
             rows.map( row => {
 
+            if (row.deleted){
+              return ''
+            }
             const editing = globalState.selectedRow == row.id;
-            const check = <i className="fa fa-check-square" aria-hidden="true"></i>;
-            const wrench = <i className="fa fa-wrench" aria-hidden="true"></i>;
 
             switch (row.rowType) {
               case 'dropdown':
                   return (
-                    <div className='row p-b-1' key={row.id}>
-                      <div className="col-md-6">
-                        <Dropdown row={row} editing={editing} />
-                      </div>
-                      <button
-                        className="col-md-1 btn btn-info btn-sm"
-                        onClick={() => onToggleEditRow(row.id)}
-                      >
-                        { editing ? check : wrench }
-                      </button>
-
-                      {'   '}
-
-                      <button
-                        className="col-md-1 btn btn-danger btn-sm"
-                        onClick={() => onRemoveRow(row.id, form.id)}
-                      >
-                        <i className="fa fa-trash-o" aria-hidden="true"></i>
-                      </button>
+                    <div className='row' key={row.id}>
+                      <Dropdown row={row} editing={editing} />
+                      <RowOptions
+                        onRemoveRow={() => onRemoveRow(row.id, form.id)}
+                        onToggleEditRow={() => onToggleEditRow(row.id)}
+                        editing={editing}
+                      />
                     </div>
                   );
 
               default:
-                return (<p>ERROR</p>);
+                return '';
             }
           })}
           <button
-            onClick={ () => onSaveForm(form.id) }
-          >Save
+            className='btn btn-success btn-sm offset-md-3'
+            onClick={() => onSaveForm(form.id) }
+          >
+          Save <i className="fa fa-floppy-o" aria-hidden="true"></i>
           </button>
         </div>
       </div>

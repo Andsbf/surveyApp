@@ -9,7 +9,7 @@ const rows = (state = {}, action) => {
         ...state,
         [action.rowId]: {
           ...state[action.rowId],
-          formId: undefined
+          deleted: true
         }
       }
 

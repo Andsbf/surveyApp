@@ -3,3 +3,9 @@ export function mapObject(object, callback) {
     return callback(key, object[key]);
   });
 }
+
+export function arrayToHashByProp(array, prop) {
+  const hash = {};
+  array.forEach(item => hash[item[prop]] = item );
+  return hash
+}

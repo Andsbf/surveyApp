@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Editing from '../components/Editing'
 import { fetchForms } from '../actions/forms'
 import { selectForm } from '../actions/form'
 import { mapObject } from '../utils/objectHelpers'
 
-class App extends Component {
+class FormList extends Component {
   componentDidMount() {
     const { onFetchForms } = this.props;
     onFetchForms()
@@ -31,7 +30,6 @@ class App extends Component {
             { form.title }
           </button>
         ))}
-        { selectedForm ? <Editing/> : '' }
       </div>
     );
   }
@@ -49,14 +47,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // onToggleEditRow: (id) => dispatch(toggleEditRow(id)),
-    // onRemoveRow: (rowId, formId) => dispatch(removeRow(rowId, formId)),
     onSelectForm: (id) => dispatch(selectForm(id)),
     onFetchForms: () => dispatch(fetchForms())
   }
 }
 
-App = connect(mapStateToProps, mapDispatchToProps)(App);
+FormList = connect(mapStateToProps, mapDispatchToProps)(FormList);
 
-export default App
+export default FormList
 

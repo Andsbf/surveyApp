@@ -19,6 +19,7 @@ class Api::V1::FormsController < ApplicationController
   # GET /forms/new
   def new
     @form = Form.new
+    render json: @form
   end
 
   # POST /forms

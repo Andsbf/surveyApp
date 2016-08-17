@@ -1,5 +1,5 @@
 import { httpGet, httpPut, httpPost } from '../utils/httpRequests'
-import { receiveRows } from './rows'
+import { receiveRows, rowsUpdater } from './rows'
 
 export function requestForm(formId) {
   return {
@@ -22,11 +22,9 @@ export function receiveForm(form) {
     formId: form.id,
     form: form,
     receivedAt: Date.now(),
-    response: {
-      entities: {
-        forms: {
-          [form.id]: cleanForm
-        }
+    entities: {
+      forms: {
+        [form.id]: cleanForm
       }
     }
   }
@@ -41,46 +39,30 @@ export function fetchForm(formId) {
       .then(response => {
         dispatch(receiveRows(response.form.rows));
         dispatch(receiveForm(response.form));
-        // dispatch(selectForm(formId)); // Tempo
       })
-      // .then(json => dispatch(receivePosts(reddit, json))) handle error
   }
 }
 
 export function saveForm(formId) {
   return (dispatch, getState) => {
-    // debugger;
-    // dispatch(requestForm(formId));
+    const form = getState().entities.forms[formId];
+    rowsUpdater(formId, getState, dispatch);
 
-    const data = {
-      form: {
-        ...getState().entities.forms[formId],
-      }
-    }
-
-    getState().rowsByForm[formId].rows.map(id => {
-      let row = getState().entities.rows[id]
-
-      const data = {
-        row: {
-          ...row,
-          formId: formId
-        }
-      }
-
-      httpPost(`http://localhost:3000/api/v1/rows`, data)
-        .then(response => {
-          debugger
-        })
-    })
-
-    return httpPut(`http://localhost:3000/api/v1/forms/${formId}.json`, data)
+    return httpPut(`http://localhost:3000/api/v1/forms/${formId}.json`, {form: form})
       .then(response => {
         dispatch(receiveRows(response.form.rows));
         dispatch(receiveForm(response.form));
         dispatch(selectForm(formId)); // Tempo
-        // response.json();
       })
-      // .then(json => dispatch(receivePosts(reddit, json))) handle error
   }
 }
+
+export function requestNewForm() {
+  return dispatch => {
+    return httpGet(`http://localhost:3000/api/v1/forms/new.json`)
+      .then(response => {
+        dispatch(receiveForm(response.form));
+      })
+  }
+}
+
